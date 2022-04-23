@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "wait.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "__locale": "c"
     }
 }
