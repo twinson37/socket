@@ -13,7 +13,8 @@
 // #define Server_IP_address 127.0.0.1
 
 int main(){
-    int sockfd, new_fd;
+    char *message,recvBuff[1024];;
+    int sockfd, new_fd, n =0;
     struct sockaddr_in their_addr; /* connector addr */ 
 
     if ((sockfd = socket (PF_INET, SOCK_STREAM, 0)) == -1) {
@@ -28,8 +29,20 @@ int main(){
         perror ("connect");
         exit (1); 
     }
-
-    return 0;
+    message = "GET /index.html HTTP/1.1\r\n\r\n";
+	if( send(sockfd , message , strlen(message) , 0) < 0)
+	{
+		puts("Send failed");
+		return 1;
+	}
+	puts("Data Send\n");
+    if(recv(sockfd, recvBuff, sizeof(recvBuff)-1,0))
+	{
+		// printf("Response %s\n",recvBuff);
+        puts(recvBuff);
+	}
+	
+	return 0;
 }
 // int main(){
 //     //create a socket

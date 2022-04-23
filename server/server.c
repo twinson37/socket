@@ -45,6 +45,7 @@
 
 int main() {
     int sockfd, new_fd;
+    char sendBuff[1025],*message;
     /* 
     listen on sock_fd, new connection on new_fd
     */
@@ -74,7 +75,13 @@ int main() {
             perror("accept");
             continue; 
         }
-        printf("server: got connection from %s\n", inet_ntoa(their_addr.sin_addr));
+        // printf("server: got connection from %s\n", inet_ntoa(their_addr.sin_addr));
+        recv(new_fd, sendBuff, sizeof(sendBuff),0);
+		printf("Response %s\n",sendBuff);
+
+        message = "hello";
+        send(new_fd, sendBuff, strlen(sendBuff), 0);
+        // printf("Hello message sent\n");
     }
     return 0;
 }
